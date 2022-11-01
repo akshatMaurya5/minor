@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        /* Set the size of the div element
+		that contains the map */
+        #map {
+            /* height: 100vh;
+            width: 100vh; */
+            height: 1080px;
+            width:1920px;
+        }
+
+        h2 {
+            color: #308d46;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h2>
+        Add Google Map on Your
+        Webpage: Geeksforgeeks
+    </h2> -->
+
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!--Add a script by google -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzEgUHxFGzP4osA4eu02yYH494FA-7y14&callback=initMap&libraries=&v=weekly" async>
+    </script>
+
+    <script>
+
+        let locationObj = {
+            lat: 30.9025,
+            lng: 75.8573
+        }
+
+        let map;
+        let marker;
+            
+
+        // Initialize and add the map
+        function initMap() {
+
+            // The location of Geeksforgeeks office
+           /*  const location = {
+                // lat: 28.50231,
+                // lng: 77.40548
+                lat : 30.9025,
+                lng : 75.8573
+                // for(var )
+                // lat, lng
+            }; */
+
+            // for (i = 0; i < arr.length; i++) 
+            // {
+            //     lat = arr[i].lat;
+            //     lng = arr[i].lng;
+
+            // }
+
+
+            // Create the map, centered at location
+             map = new google.maps.Map(
+                document.getElementById("map"), {
+
+                // Set the zoom of the map
+                zoom: 20,
+                center: locationObj,
+            });
+
+            marker = new google.maps.Marker({
+                position: locationObj,
+                map,
+                draggable: true,
+                title:'this is marker'
+            })
+
+            
+        }
+
+        function moveMarker(){
+            const newLat = locationObj.lat + 0.0001;
+            const newLng = locationObj.lng + 0.0001;
+            locationObj.lat = newLat;
+            locationObj.lng = newLng;
+            const newLatLng = new google.maps.LatLng(newLat, newLng);
+            map.panTo(newLatLng);
+            marker.setPosition(newLatLng);
+        }
+
+        window.setInterval(moveMarker,1000);
+
+
+    </script>
+</body>
+
+</html>
